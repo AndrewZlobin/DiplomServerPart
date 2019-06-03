@@ -1,0 +1,300 @@
+
+
+
+/*
+!*Про запас*!
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-menu {
+    display: flex;
+    flex-direction: row;
+    flex: 100%;
+    !*padding: 2%;*!
+}
+
+.flex-grow-menu {
+    flex-grow: 1;
+}
+
+
+.flex-left {
+    display: flex;
+    flex-direction: column;
+    flex: 10%;
+    justify-content: center;
+    align-items: center;
+    background-colorRadio: darkgoldenrod;
+    !*padding: 2%;*!
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: row;
+    flex: 80%;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+}
+
+.flex-right {
+    display: flex;
+    flex-direction: column;
+    flex: 10%;
+    justify-content: center;
+    align-items: center;
+    background-colorRadio: darkgoldenrod;
+    !*padding: 2%;*!
+}
+
+.flex-bottom {
+    display: flex;
+    flex-direction: row;
+    flex: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 0;
+}
+
+.flex-main-left {
+    display: flex;
+    flex-direction: column;
+    flex: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0.75vw;
+}
+
+.flex-main-right {
+    display: flex;
+    flex-direction: column;
+    flex: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75vw;
+}
+*/
+
+
+@media screen and (max-width: 996px) {
+
+    /*Меню*/
+    .top-bar a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+    }
+
+    .top-bar ul {
+        list-style: none;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: rgba(140, 140, 140, 0.2);
+    }
+
+    .top-bar ul li {
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+
+    .top-bar ul li p {
+        top: 0;
+        display: block;
+        font-size: 1em;
+    }
+
+    .top-bar ul li p:hover {
+        background-color: whitesmoke;
+        color: black;
+    }
+
+    .top-bar li:hover .dropdown-menu > li {
+        top: 0;
+        display: block;
+    }
+
+    .top-bar ul li ul.dropdown-menu li {
+        position: relative;
+        display: none;
+    }
+
+    .top-bar ul li ul.dropdown-menu {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    /*Основные элементы*/
+    .center-bar .left-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 2;
+        order: 1;
+    }
+
+    .center-bar .center-menu {
+        display: flex;
+        flex-direction: column;
+        flex: 6;
+        order: 0;
+    }
+
+    .center-bar .right-menu {
+        display: none
+    }
+
+    .footer-bar {
+        justify-content: flex-start;
+    }
+
+    /*Флексы*/
+    .help-moscow,
+    .help-spb,
+    .help-samara,
+    .help-ekaterinburg {
+        background-color: crimson;
+        opacity: 0.9;
+        border: none;
+        text-decoration: none;
+        color: black;
+        padding: 2vw;
+        margin: 5vw 0;
+        cursor: pointer;
+        font-family: Arial Black;
+        font-size: 2vw;
+        border-radius: 25px;
+    }
+
+    .footer-bar .youtube,
+    .footer-bar .vk,
+    .footer-bar .odnoklassniki,
+    .footer-bar .google-plus
+    .footer-bar p{
+        margin: 0.5vw 0.5vw;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    /*Меню снова как на большом экране, только column*/
+    .button-menu {
+        display: none;
+    }
+
+    .top-bar {
+        display: flex;
+        flex-direction: row;
+        flex: 10;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .top-bar > ul {
+        list-style: none;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: rgba(140, 140, 140, 0.2);
+    }
+
+    .top-bar ul li.button-submenu {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .top-bar ul li p {
+        display: none;
+    }
+
+    .top-bar ul li ul.dropdown-menu li {
+        display: block;
+    }
+
+    .center-bar .left-menu {
+        display: none;
+    }
+}
+
+/*    .center-bar .center-menu {
+        display: flex;
+        flex-direction: row;
+        flex: 7;
+        order: 1;
+    }
+
+    !*Для левого и правого полей*!
+    .center-bar .left-menu {
+        display: flex;
+        flex-direction: column;
+        flex: 3;
+        order: 0;
+    }
+
+    .center-bar .right-menu {
+        display: flex;
+        flex-direction: column;
+        flex: 3;
+        order: 2;
+    }
+
+    !*Backup*!
+    .flex-right {
+        display: none;
+    }
+
+    .flex-center {
+        flex: 100%;
+    }
+
+    .nav-menu ul{
+        display: flex;
+        flex-direction: column;
+        float: left;
+        width: 100%;
+    }
+
+    .nav-menu li:hover .submenu > li {
+        top: 0;
+        display: inline-block;
+    }
+
+    .flex-center {
+        flex-direction: row;
+    }
+
+    .flex-bottom {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .flex-bottom p {
+        width: 75%;
+    }
+
+    .dropdown {
+        display: flex;
+        flex-direction: column;
+    }*/
+
+@media screen and (max-width: 600px) {
+    /*Здесь я пока не знаю =( */
+}
