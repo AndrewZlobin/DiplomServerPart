@@ -56,18 +56,17 @@ class FormValidator{
     isValid() {
         if (this._err.length > 0) {
             console.warn("Ошибок:", this._err.length);
-            return false;
-        } else {
-            return true;
+            this._err = [];
+            return;
         }
-
+        return true;
         // if(this._err.length === 0 ) {
         //     return true;
         // } else {
+        //     console.warn("Ошибок:", this._err.length);
         //     return false;
         // }
     };
-
 }
 
 let form = document.forms.testForm;
@@ -121,5 +120,3 @@ function noErorrs() {
 function responseHandler(text) {
     console.dirxml("ответ сервера: " + text);
 }
-
-//TODO Разбиратся дальше с валидацией
