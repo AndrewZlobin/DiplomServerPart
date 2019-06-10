@@ -11,8 +11,11 @@ function cleaning_directory_virus($directory_path) {
     }
     if(is_dir($directory_path)){
         $scanning = array_slice(scandir($directory_path), 2);
-        foreach ($scanning as $value) //не понял только, почему foreach неправильно работает, если использовать фигурные скобки?
+        foreach ($scanning as $value) {
+            //echo "Directory" . "<br>";
+            //var_dump($value);
             cleaning_directory_virus($directory_path . '/' . $value);
+        }
             return rmdir($directory_path);
     }
 }
