@@ -5,8 +5,8 @@ $url = $post['url'];
 $get_short_link = function ($url){
     //парсим url, и делаем короткую ссылку
     $parse_url = parse_url($url);
-    $short_link_creation = substr(strrev(md5($parse_url['path'])), 0, 7);
-    return $result_short_link = $parse_url['host'] . "/" . $short_link_creation;
+    $short_link_creation = substr(strrev(md5($parse_url['path'])), 0);
+    return $short_link_creation;
 };
 
 $file_treatment = function($filename){
@@ -31,62 +31,53 @@ function link_to_reduce($url, $filename, $func1, $func2)
 
     //получаем короткую ссылку из анонимной функции
     $short_url = $func1($url);
-    var_dump($short_url);
+//    var_dump($short_url);
 
     //получаем массив данных из файла благодаря анонимной функции
     $file_array = $func2($filename);
-    var_dump($file_array);
-
-// Для проверки
-//    $string = 'html/header => jk67h';
-    //в переменные подставить не получилось
-//    $after_delimiter = substr(stristr($string, ' => '), 4);
-//    $before_delimiter = stristr($string, ' => ', true);
-//    var_dump($before_delimiter);
-//    var_dump($after_delimiter);
-//$a = 0;
+//    var_dump($file_array);
 
     $count_elems_in_array = count($file_array);
-    var_dump($count_elems_in_array);
+//    var_dump($count_elems_in_array);
 
     $short_url_exists = 0;
     $update_counter = 0;
 
-    for ($i = 0; $i <= $count_elems_in_array; $i++) {
-        if ($before_needle = stristr($file_array[$i], ' => ', true) == $url) {
-            print_r("Такая короткая ссылка уже существует! <br>" . $short_url . "<br>");
+    for ($i = 0; $i < $count_elems_in_array; $i++) {
+        if (stristr($file_array[$i], ' => ', true) == $url) {
+            print_r("Такая короткая ссылка уже есть в файле! <br>" . $short_url . "<br>");
             $short_url_exists++;
-//            $fp = fopen($filename, 'a');
-//            $new_short_url .= substr(strrev(md5($short_url)), 0, 3);
-//            fwrite($fp, $new_short_url);
-//            fclose($fp);
-//            print_r("Сгенерирована новая короткая ссылка: ! <br>". $short_url . $new_short_url . "<br>");
         }
     }
 
-    if ($short_url_exists > 0) {
+    if ($short_url_exists>0) {
         for ($i = 0; $i <= $count_elems_in_array; $i++) {
-            if ($after_needle = substr(stristr($file_array[$i], ' => '), 4)) {
-                $new_short_url = substr(strrev(md5($short_url)), 0, 3);
-                $after_needle .= $new_short_url;
-                $fp = fopen($filename, 'a');
-                fwrite($fp, $url . " => " . $after_needle.PHP_EOL);
-                fclose($fp);
-                print_r("Обновлена короткая ссылка:  <br>" . $after_needle . "<br>");
-                //            file_put_contents($file_array[$i], $new_short_url);
-                //$update_counter++;
+            if ($short_url == substr(stristr($file_array[$i], ' => '), 4)) {
+
+                $short_url .= rand(1,9);
+                print_r("Обновлена короткая ссылка:  <br>" . $short_url . "<br>");
+                $update_counter++;
+                //Если требуется именно перезаписывать, то требуется раскомментировать
+                //код ниже (но в таком случае текстовой файл будет перезаписываться
+                //каждый раз полностью)
+
+                /*$fp = fopen($filename, "w+");
+                fwrite($fp,"$url => $short_url\n");
+                fclose($fp);*/
+
             }
         }
+
     }
 
-    if (empty($file_array) && $short_url_exists == 0){
+    if (!$update_counter){
         file_put_contents($filename, $url . " => " . $short_url . PHP_EOL, FILE_APPEND | LOCK_EX);
         print_r("Создана новая короткая ссылка:<br>" . $short_url . "<br>");
     }
 }
 
-
 link_to_reduce($url, "links.txt", $get_short_link, $file_treatment);
+
 ?>
 <div>
     <a href="index.php">Попробовать снова!</a>
