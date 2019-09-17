@@ -1,0 +1,105 @@
+Синаксис SQL:
+1. DDL (Data Definition Language) - определение данных (создать бд, удалить бд,
+создать таблицу, удалить таблицу и прочее);
+
+2. DML (Data Manipulation Language) - взаимодействие с таблицами (вставка данных в таблицу, выбор данных из таблицы,
+обновление данных в таблице, удаление данных из таблицы);
+
+3. DCL (Data Control Language) - администрирование БД (создание пользователей, назначение прав и прочее).
+
+Создание нового пользователя:
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';
+
+Предоставление всех прав пользования таблицей:
+GRANT ALL ON *.* TO 'user'@'localhost';
+
+DDL
+Создать базу данных:
+CREATE DATABASE test;
+
+Удалить базу данных:
+DROP DATABASE test;
+
+выбор базы данных (для консоли):
+USE test;
+
+InnoDB (поодерживает индексы, связи, направлен на выбор данных, быстрое извлечение),
+MYISAM (оптимизирован под добавление и изменение данных, но нет поддержки внешних ключей),
+Arhive (не поддерживает индексов и транзакций, но используется для редко используемых данных),
+Memory (хранение данных в оперативной памяти сервера, но возможна потеря данных),
+Blackhole (не хранит данные, данные сразу уничтожаются).
+
+Создание таблицы:
+
+CREATE TABLE IF NOT EXISTS name_table(
+	`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`login` VARCHAR(50) NOT NULL,
+	`age` INT NOT NULL
+) ENGINE=InnoDB
+
+Вставка
+INSERT INTO name_table(login, age) VALUES('qwe', 25);
+
+Обновление записи:
+UPDATE name_table SET login='newLogin' WHERE id = 2;
+
+Выбор записи:
+SELECT имена_столбцов FROM имя_таблицы WHERE условие
+
+SELECT * FROM name_table;
+SELECT login FROM name_table;
+SELECT login,age FROM name_table;
+SELECT * FROM name_table WHERE age > 18;
+SELECT * FROM name_table WHERE id = 3;
+SELECT * FROM name_table WHERE age BETWEEN 18 AND 45;
+SELECT * FROM name_table WHERE age > 18 LIMIT 3;
+
+SELECT * FROM name_table WHERE login LIKE 'a%'; - логин должен начинаться с а, далее - что угодно;
+SELECT * FROM name_table WHERE login LIKE '%e'; - логин начинается с чего угодно, в конце - е;
+SELECT * FROM name_table WHERE login LIKE '%b%'; - логин содержит b;
+SELECT * FROM name_table WHERE login LIKE '_a%'; - a будет на второй позиции;
+
+Объединение условий: AND OR NOT
+SELECT * FROM name_table WHERE условие1 AND условие2 и т.д.
+SELECT * FROM name_table WHERE условие1 OR условие2 и т.д.
+SELECT * FROM name_table WHERE NOT условие1
+
+Удаление записи:
+DELETE FROM name_table WHERE id = 5;
+
+show databases - отобразить все БД сервера.
+
+Продолжение (от 14.05.2019)
+
+SELECT * FROM name_table LIMIT - смещение, количество строк
+ALTER TABLE - изменять типы данных столбца (изменение таблицы)
+
+Добавление
+ALTER TABLE Author ADD surname TEXT;
+
+Удаление столбца:
+ALTER TABLE Author DROP COLUMN surname TEXT;
+
+Изменение столбца:
+ALTER TABLE Author MODIFY COLUMN surname VARCHAR(255) NOT NULL;
+
+Добавление первичного ключа:
+ALTER TABLE Author ADD PRIMARY KEY имя_столбца;
+
+INSERT INTO Author (`name`, `surname`) VALUES ('Марк', 'Твен')
+
+INSERT INTO Author (`name`, `surname`) VALUES ('Лев', 'Толстой')
+
+INSERT INTO Author (`name`, `surname`) VALUES ('Антон', 'Чехов')
+
+INSERT INTO Author (`name`, `surname`) VALUES ('Александр', 'Пушкин')
+
+Алиасы
+
+SELECT имя_столбца AS alias FROM имя_таблицы;
+
+SELECT имя_столбца FROM имя_таблицы alias;
+
+SELECT concat(name, '', surname) AS author FROM Author;
+
+SELECT price-(price*0.1) AS sale FROM name_table;
